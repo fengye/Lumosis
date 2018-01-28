@@ -111,7 +111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultTarget: {fileID: 0}
   fovAddition: 35
-  heightAddition: 80
+  heightAddition: 120
 --- !u!124 &124946156947574654
 Behaviour:
   m_ObjectHideFlags: 1

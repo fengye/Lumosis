@@ -76,13 +76,13 @@ public class MenuController : MonoBehaviour {
     }
 
     private IEnumerator _ShowMenu(){
-        float velocity = 0f;
+		float velocity = 0f;
+		menuActive = true;
         while (canvasGroup.alpha <= 0.9999)
         {
             canvasGroup.alpha = Mathf.SmoothDamp(canvasGroup.alpha, 1, ref velocity, 0.3f);
             yield return null;
         }
-        menuActive = true;
         canvasGroup.alpha = 1;
     }
 

@@ -19,6 +19,8 @@ public class CameraFollowPlayer : MonoBehaviour {
 
     PlayerPhysics target;
 
+	private bool mapView = false;
+
     void Start(){
         thisCamera = GetComponent<Camera>();
         baseHeight = transform.position.y;
@@ -29,18 +31,36 @@ public class CameraFollowPlayer : MonoBehaviour {
     void LateUpdate () {
         target = FindObjectOfType<PlayerPhysics>();
 
-        if (target != null)
-        {
+		if (target != null)
+		{
+//			if(Input.GetKeyDown(KeyCode.Space)){
+//				mapView = !mapView;
+//			}
+//
+//			if (mapView) {
+//				Time.timeScale = 0;
+//			} else {
+//				Time.timeScale = 1;
+//			}
+
             Vector3 targetPosition = target.transform.position;
             targetPosition.y = transform.position.y;
             transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, 0.25f);
 
             float targetHeight = baseHeight + (heightAddition * (target.currentSpeed / target.maximumSpeed));
-            targetHeight = Mathf.Lerp(transform.position.y, targetHeight, Time.deltaTime);
+			if (mapView) {
+				targetHeight = 150;
+			}
+
+			float delta = Time.deltaTime;
+			if (Time.timeScale == 0)
+				delta = Time.fixedDeltaTime;
+			
+			targetHeight = Mathf.Lerp(transform.position.y, targetHeight, delta);
             transform.position = new Vector3(transform.position.x, targetHeight, transform.position.z);
 
             float targetFov = baseFov + (fovAddition * (target.currentSpeed / target.maximumSpeed));
-            targetFov = Mathf.Lerp(thisCamera.fieldOfView, targetFov, Time.deltaTime);
+			targetFov = Mathf.Lerp(thisCamera.fieldOfView, targetFov, delta);
             thisCamera.fieldOfView = targetFov;
 
             transform.position = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
@@ -58,6 +78,6 @@ public class CameraFollowPlayer : MonoBehaviour {
             float targetFov = baseFov;
             targetFov = Mathf.Lerp(thisCamera.fieldOfView, targetFov, Time.deltaTime);
             thisCamera.fieldOfView = targetFov;
-        }
+		}
     }
 }

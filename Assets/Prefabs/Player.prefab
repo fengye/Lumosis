@@ -2197,7 +2197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22958be0c6eacf543b1f1ce9caece26e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseTurnRate: 0.25
+  baseTurnRate: 0.3
 --- !u!114 &114258208590275608
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2277,7 +2277,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bfca4048151705409aed062e04e471a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedMaximum: 60
+  speedMaximum: 80
   speedDecay: 0.1
   turnRateMinimumMultiplier: 0.35
 --- !u!114 &114975276213184006

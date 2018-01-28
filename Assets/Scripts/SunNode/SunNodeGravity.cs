@@ -19,15 +19,15 @@ public class SunNodeGravity : MonoBehaviour {
     public Transform rippleParent;
 
     public bool gravityEnabled = true;
-    const float innerRadiusDiff = 1.35f;
-    const float outerRadiusDiff = 2.75f;
+    const float innerRadiusDiff = 1.5f;
+    const float outerRadiusDiff = 3.5f;
 
 
     public float innerRadius
     {
         get 
         {
-            return nodeRadius + (innerRadiusDiff * (1 + (nodeRadius * 0.03f)));
+            return nodeRadius + (innerRadiusDiff * (1 + (nodeRadius * 0.06f)));
         }
     }
 
@@ -36,7 +36,7 @@ public class SunNodeGravity : MonoBehaviour {
         get
         {
             // Debug.Log("Out radius: " + (nodeRadius + outerRadiusDiff));
-            return nodeRadius + (outerRadiusDiff * (1 + (nodeRadius * 0.03f)));
+            return nodeRadius + (outerRadiusDiff * (1 + (nodeRadius * 0.06f)));
         }
     }
 
@@ -122,6 +122,7 @@ public class SunNodeGravity : MonoBehaviour {
 		if (physics && gravityEnabled && parentNode.sunState == SunNode.SunState.ENABLED)
 		{
 			float sunTypeMultiplier = 1f;
+			float timeMultiplier = 1f;
 			if(parentNode.sunType == SunNode.SunType.YELLOW) {
 				sunTypeMultiplier = 1f;
 			}
@@ -130,6 +131,7 @@ public class SunNodeGravity : MonoBehaviour {
 			}
 			else if(parentNode.sunType == SunNode.SunType.RED){
 				sunTypeMultiplier = 0.6f;
+				timeMultiplier = 2f;
 			}
 
 
@@ -143,9 +145,9 @@ public class SunNodeGravity : MonoBehaviour {
             float force = 1 / Mathf.Pow(distance, 2);
 			if (parentNode.sunState == SunNode.SunState.ENABLED)
             {
-				force *= 1 + ((Time.time - enterTime) / 4);
+				force *= 1 + (((Time.time - enterTime) / 4) * timeMultiplier);
 				force *= 1 + (parentNode.nodeRadius / 3);
-				force *= 0.33f;
+				force *= 0.05f;
 				force *= sunTypeMultiplier;
                 force = Mathf.Clamp(force, 0, mass);
 				physics.AddSpeed(force * Time.deltaTime);
